@@ -32,7 +32,7 @@ node {
       def pubProfilesJson = sh script: "az webapp deployment list-publishing-profiles -g $resourceGroup -n $webAppName", returnStdout: true
       def ftpProfile = getFtpPublishProfile pubProfilesJson
       // upload package
-      sh "curl -T target/calculator-1.0.war $ftpProfile.url/webapps/ROOT.war -u 'appWithJenkins\awj:2474Th1256?'"
+      sh "curl -T target/calculator-1.0.war $ftpProfile.url/webapps/ROOT.war -u 'appWithJenkins\\awj:2474Th1256?'"
       // log out
       sh 'az logout'
     }
