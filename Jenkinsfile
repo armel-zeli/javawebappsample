@@ -3,9 +3,10 @@ import groovy.json.JsonSlurper
 def getFtpPublishProfile(def publishProfilesJson) {
   def pubProfiles = new JsonSlurper().parseText(publishProfilesJson)
   for (p in pubProfiles){
-    if (p['publishMethod'] == 'FTP')
+    if (p['publishMethod'] == 'FTP'){
       def username = p['userName'].replace('\\','\\\\')
       return [url: p.publishUrl, username: $username, password: p.userPWD]
+    }
   }
 }
 
