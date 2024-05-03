@@ -5,7 +5,7 @@ def getFtpPublishProfile(def publishProfilesJson) {
   for (p in pubProfiles)
     if (p['publishMethod'] == 'FTP')
       def username = p['userName'].replace('\\','\\\\')
-      return [url: p.publishUrl, username: p.userName, password: p.userPWD]
+      return [url: p.publishUrl, username: username, password: p.userPWD]
 }
 
 node {
