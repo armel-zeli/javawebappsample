@@ -4,7 +4,7 @@ def getFtpPublishProfile(def publishProfilesJson) {
   def pubProfiles = new JsonSlurper().parseText(publishProfilesJson)
   for (p in pubProfiles)
     if (p['publishMethod'] == 'FTP')
-      return [url: p.publishUrl, username: p.username, password: p.userPWD]
+      return [url: p.publishUrl, username: p.userName, password: p.userPWD]
 }
 
 node {
@@ -32,7 +32,7 @@ node {
       def pubProfilesJson = sh script: "az webapp deployment list-publishing-profiles -g $resourceGroup -n $webAppName", returnStdout: true
       def ftpProfile = getFtpPublishProfile pubProfilesJson
       // upload package
-      sh "curl -T target/calculator-1.0.war $ftpProfile.url/webapps/ROOT.war -u 'appWithJenkins\\awj:2474Th12'"
+      sh "curl -T target/calculator-1.0.war $ftpProfile.url/webapps/ROOT.war -u '$ftpProfile.username:$ftpProfile.password'"
       // log out
       sh 'az logout'
     }
